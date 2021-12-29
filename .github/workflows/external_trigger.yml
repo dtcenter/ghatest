@@ -6,7 +6,7 @@ on:
     inputs:
       repo_name:
         description: 'Repository that triggered workflow'
-	required: true
+        required: true
       docker_tag:
         description: 'DockerHub tag to use'
 
