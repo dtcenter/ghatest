@@ -2,6 +2,13 @@ on:
   push:
     branches:
       - test_external_trigger
+  external_trigger:
+    inputs:
+      repo_name:
+        description: 'Repository that triggered workflow'
+	required: true
+      docker_tag:
+        description: 'DockerHub tag to use'
 
 jobs:
   get_trigger_info:
