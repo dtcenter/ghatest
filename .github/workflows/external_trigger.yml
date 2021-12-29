@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - test_external_trigger
-  external_trigger:
+  workflow_dispatch:
     inputs:
       repo_name:
         description: 'Repository that triggered workflow'
