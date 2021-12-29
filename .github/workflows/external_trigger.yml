@@ -1,0 +1,14 @@
+on:
+  push:
+    branches:
+      - test_external_trigger
+
+jobs:
+  get_trigger_info:
+    name: Get information about what triggered this workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GitHub values for reference
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
