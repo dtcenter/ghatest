@@ -17,18 +17,30 @@ jobs:
   trigger_info:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     name: ${{ github.event.inputs.repo_name }} by ${{ github.event.inputs.actor }}
-    runs-on: ubuntu-latest
     steps:
       - name: Print Inputs from Event
         run: |
-          echo "repo_name: ${{ github.event.inputs.repo_name }}\n"
-          echo "docker_tag: ${{ github.event.inputs.docker_tag }}\n"
-          echo "actor: ${{ github.event.inputs.actor }}\n"
+          echo "repo_name: ${{ github.event.inputs.repo_name }}"
+          echo "docker_tag: ${{ github.event.inputs.docker_tag }}"
+          echo "actor: ${{ github.event.inputs.actor }}"
   get_trigger_info:
     name: Get information about what triggered this workflow
     runs-on: ubuntu-latest
+    outputs:
+      trigger_text: ${{ steps.get_trigger_info.outputs.trigger_text }}
     steps:
-      - name: Print GitHub values for reference
+      - name: Read event info
+        run: |
+          if [ ${{ github.event_name == 'workflow_dispatch' }} ]; then
+            str="From ${{ github.event.inputs.repo_name }} by ${{ github.event.inputs.actor }}"
+          else
+            str="${{ github.event_name }} Event"
+          fi
+          echo ::set-output name=trigger_text::$str
+       - name: Print GitHub values for reference
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+  print_event:
+    needs: get_trigger_info
+    name: ${{ needs.get_trigger_info.outputs.trigger_text }}
