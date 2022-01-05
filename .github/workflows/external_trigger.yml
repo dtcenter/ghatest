@@ -17,6 +17,7 @@ jobs:
   trigger_info:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     name: ${{ github.event.inputs.repo_name }} by ${{ github.event.inputs.actor }}
+    runs-on: ubuntu-latest
     steps:
       - name: Print Inputs from Event
         run: |
@@ -44,6 +45,7 @@ jobs:
   print_event:
     needs: get_trigger_info
     name: ${{ needs.get_trigger_info.outputs.trigger_text }}
+    runs-on: ubuntu-latest
     steps:
       - name: Print Inputs from Event
         run: |
