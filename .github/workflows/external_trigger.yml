@@ -14,6 +14,16 @@ on:
         required: true
 
 jobs:
+  trigger_info:
+    if: ${{ github.event_name == "workflow_dispatch" }}
+    name: ${{ github.event.inputs.repo_name }} by ${{ github.event.inputs.actor }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Inputs from Event
+        run: |
+          echo "repo_name: ${{ github.event.inputs.repo_name }}\n"
+	  echo "docker_tag: ${{ github.event.inputs.docker_tag }}\n"
+          echo "actor: ${{ github.event.inputs.actor }}\n"
   get_trigger_info:
     name: Get information about what triggered this workflow
     runs-on: ubuntu-latest
