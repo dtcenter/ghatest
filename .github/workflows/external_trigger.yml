@@ -37,7 +37,7 @@ jobs:
             str="${{ github.event_name }} Event"
           fi
           echo ::set-output name=trigger_text::$str
-       - name: Print GitHub values for reference
+      - name: Print GitHub values for reference
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
