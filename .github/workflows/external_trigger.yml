@@ -44,3 +44,9 @@ jobs:
   print_event:
     needs: get_trigger_info
     name: ${{ needs.get_trigger_info.outputs.trigger_text }}
+    steps:
+      - name: Print Inputs from Event
+        run: |
+          echo "repo_name: ${{ github.event.inputs.repo_name }}"
+          echo "docker_tag: ${{ github.event.inputs.docker_tag }}"
+          echo "actor: ${{ github.event.inputs.actor }}"
