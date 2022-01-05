@@ -15,8 +15,7 @@ on:
 
 jobs:
   trigger_info:
-    #if: ${{ github.event_name == 'workflow_dispatch' }}
-    name: "${{ github.event_name != 'workflow_dispatch' && github.event_name || "github.event.inputs.repo_name by github.event.inputs.actor" }}"
+    name: "${{ github.event_name != 'workflow_dispatch' && github.event_name || github.event.inputs.repo_name }}"
     runs-on: ubuntu-latest
     steps:
       - name: Print Inputs from Event
