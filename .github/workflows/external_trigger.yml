@@ -9,6 +9,9 @@ on:
         required: true
       docker_tag:
         description: 'DockerHub tag to use'
+      actor:
+        description: 'User that triggered the event'
+        required: true
 
 jobs:
   get_trigger_info:
