@@ -4,14 +4,16 @@ on:
       - test_external_trigger
   workflow_dispatch:
     inputs:
-      repo_name:
+      repository:
         description: 'Repository that triggered workflow'
         required: true
-      docker_tag:
+      ref:
         description: 'DockerHub tag to use'
       actor:
         description: 'User that triggered the event'
         required: true
+      sha:
+        description: 'Commit hash'
       pusher_email:
         description: 'Email address of user who triggered push event'
 
