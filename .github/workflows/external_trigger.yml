@@ -53,6 +53,17 @@ jobs:
           echo "actor: ${{ github.event.inputs.actor }}"
           echo "pusher_email: ${{ github.event.inputs.pusher_email }}"
       - name: Send email
-        run: |
-          echo "A METplus use case testing workflow failed after it was triggered by changes you pushed in REPO COMMIT_HASH. Changes from your push did not necessarily break the tests. It is possible that the tests were failing prior to your push. Please investigate the differences that may have been caused by your changes. https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}" | \
-          mail -s "TEST: METplus Use Case Tests Failed" "metplus-bot@ucar.edu mccabe@ucar.edu"
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_address: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "TEST: ${{ github.repository }} Use Case Tests Failed"
+          body: "A METplus use case testing workflow failed after it was triggered by changes you p\
+ushed in REPO COMMIT_HASH. Changes from your push did not necessarily break the tests. It is possi\
+ble that the tests were failing prior to your push. Please investigate the differences that may ha\
+ve been caused by your changes. https://github.com/${{github.repository}}/actions/runs/${{github.r\
+un_id}}"
+          to: "metplus-bot@ucar.edu mccabe@ucar.edu"
+          from: George via Automation
