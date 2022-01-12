@@ -12,10 +12,13 @@ on:
       actor:
         description: 'User that triggered the event'
         required: true
+      pusher_email:
+        description: 'Email address of user who triggered push event'
 
 jobs:
   trigger_info:
-    name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && github.event_name || github.event.inputs.repo_name }}"
+    name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && github.event_name || 'github.event.inputs.repository github.event.inputs.pusher_email github.event.inputs.sha' }}"
+    #name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && github.event_name || github.event.inputs.repo_name }}"
     runs-on: ubuntu-latest
     steps:
       - name: Print Inputs from Event
