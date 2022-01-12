@@ -17,7 +17,7 @@ on:
 
 jobs:
   trigger_info:
-    name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && 'github.event_name github.job' || 'github.event.inputs.repository github.event.inputs.pusher_email github.event.inputs.sha' }}"
+    name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && github.event_name github.job || 'github.event.inputs.repository github.event.inputs.pusher_email github.event.inputs.sha' }}"
     #name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && github.event_name || github.event.inputs.repo_name }}"
     runs-on: ubuntu-latest
     steps:
@@ -55,18 +55,18 @@ jobs:
           echo "docker_tag: ${{ github.event.inputs.docker_tag }}"
           echo "actor: ${{ github.event.inputs.actor }}"
           echo "pusher_email: ${{ github.event.inputs.pusher_email }}"
-      - name: Send email
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "TEST: ${{ github.repository }} Use Case Tests Failed"
-          body: "A METplus use case testing workflow failed after it was triggered by changes you p\
+      #- name: Send email
+      #  uses: dawidd6/action-send-mail@v2
+      #  with:
+      #    server_address: smtp.gmail.com
+      #    server_port: 465
+      #    username: ${{ secrets.EMAIL_USERNAME }}
+      #    password: ${{ secrets.EMAIL_PASSWORD }}
+      #    subject: "TEST: ${{ github.repository }} Use Case Tests Failed"
+      #    body: "A METplus use case testing workflow failed after it was triggered by changes you p\
 ushed in REPO COMMIT_HASH. Changes from your push did not necessarily break the tests. It is possi\
 ble that the tests were failing prior to your push. Please investigate the differences that may ha\
 ve been caused by your changes. https://github.com/${{github.repository}}/actions/runs/${{github.r\
 un_id}}"
-          to: "metplus-bot@ucar.edu mccabe@ucar.edu"
-          from: George via Automation
+      #    to: "metplus-bot@ucar.edu mccabe@ucar.edu"
+      #    from: George via Automation
