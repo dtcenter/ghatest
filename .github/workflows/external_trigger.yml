@@ -17,7 +17,7 @@ on:
 
 jobs:
   trigger_info:
-    name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && github.event_name || 'github.event.inputs.repository github.event.inputs.pusher_email github.event.inputs.sha' }}"
+    name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && 'github.event_name github.job' || 'github.event.inputs.repository github.event.inputs.pusher_email github.event.inputs.sha' }}"
     #name: "Trigger: ${{ github.event_name != 'workflow_dispatch' && github.event_name || github.event.inputs.repo_name }}"
     runs-on: ubuntu-latest
     steps:
