@@ -14,21 +14,21 @@ jobs:
     steps:
       - run: echo Running pre job 2
 
-  test:
+  ${{ matrix.tests }}:
     name: Run MET Unit Tests
     runs-on: ubuntu-latest
-    #needs: [pre1, ${{ matrix.needs }}]
+    #needs: [pre1, ${{ matrix.needed }}]
     needs: [pre1]
     id: ${{ matrix.tests }}
     strategy:
       matrix:
-        needs: pre2
+        needed: pre2
         tests:
-          - 'gaussian aeronet'
+          - 'gaussian'
           - 'airnow'
         include:
           - tests: 'ioda2nc'
-            needs: 'pre2, airnow'
+            needed: 'pre2, airnow'
       fail-fast: false
     steps:
       - run: echo ${{ matrix.tests }}
