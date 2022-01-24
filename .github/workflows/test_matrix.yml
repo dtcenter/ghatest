@@ -1,0 +1,33 @@
+name: Test Matrix
+on:
+  push:
+    branches:
+      - 'test_matrix'
+
+jobs:
+  pre1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Running pre job 1
+  pre2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Running pre job 2
+
+  test:
+    name: Run MET Unit Tests
+    runs-on: ubuntu-latest
+    needs: [pre1, ${{ matrix.needs }}]
+    id: ${{ matrix.tests }}
+    strategy:
+      matrix:
+        needs: pre2
+        tests:
+          - 'gaussian aeronet'
+          - 'airnow'
+        include:
+          - tests: 'ioda2nc'
+            needs: 'pre2, airnow'
+      fail-fast: false
+    steps:
+      - runs: echo ${{ matrix.tests }}
