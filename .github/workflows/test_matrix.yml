@@ -31,4 +31,4 @@ jobs:
             needs: 'pre2, airnow'
       fail-fast: false
     steps:
-      - runs: echo ${{ matrix.tests }}
+      - run: echo ${{ matrix.tests }}
