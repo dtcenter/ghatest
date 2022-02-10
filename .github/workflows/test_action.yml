@@ -8,7 +8,7 @@ jobs:
   run_action:
     runs-on: ubuntu-latest
     steps:
-      - uses: dtcenter/metplus-data-update@58e9f12a0870290641c7b6e21f76f9ef7ae23880
+      - uses: dtcenter/metplus-data-update@2c5532041c537420c2802c99b14bba5b520bdf33
         with:
           docker_name: ${{ secrets.DOCKER_USERNAME }}
           docker_pass: ${{ secrets.DOCKER_PASSWORD }}
