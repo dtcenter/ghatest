@@ -10,11 +10,10 @@ jobs:
     steps:
       - uses: dtcenter/metplus-data-update@v0
         with:
-          args:
-            docker_name: bad_name
-            docker_pass: bad_pass
-            repo_name: MET
-            data_prefix: unit_test
-            branch_name: develop
-            data_repo_dev: metplus-data-output
-            docker_data_dir: /data/input/MET_test_data/unit_test
+          docker_name: bad_name
+          docker_pass: bad_pass
+          repo_name: MET
+          data_prefix: unit_test
+          branch_name: develop
+          data_repo_dev: metplus-data-output
+          docker_data_dir: /data/input/MET_test_data/unit_test
