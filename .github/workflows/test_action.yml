@@ -10,8 +10,8 @@ jobs:
     steps:
       - uses: dtcenter/metplus-data-update@f5fd24cfbb48ee33e934a3756c8e9832e6c62fbd
         with:
-          docker_name: bad_name
-          docker_pass: bad_pass
+          docker_name: ${{ secrets.DOCKER_USERNAME }}
+          docker_pass: ${{ secrets.DOCKER_PASSWORD }}
           repo_name: MET
           data_prefix: unit_test
           branch_name: develop
