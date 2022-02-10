@@ -8,12 +8,12 @@ jobs:
   run_action:
     runs-on: ubuntu-latest
     steps:
-      - uses: dtcenter/metplus-data-update@5c607f849bf33df89223485de8c9883d9ddb0483
+      - uses: dtcenter/metplus-data-update@f5fd24cfbb48ee33e934a3756c8e9832e6c62fbd
         with:
           docker_name: bad_name
           docker_pass: bad_pass
           repo_name: MET
           data_prefix: unit_test
           branch_name: develop
-          data_repo_dev: metplus-data-output
+          data_repo_dev: met-data-dev
           docker_data_dir: /data/input/MET_test_data/unit_test
