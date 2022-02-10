@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: dtcenter/metplus-data-update@v0
-        with:
+        args:
           docker_name: bad_name
           docker_pass: bad_pass
           repo_name: MET
