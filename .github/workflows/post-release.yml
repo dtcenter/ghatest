@@ -1,0 +1,28 @@
+name: Post-release tasks
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  add-checksum:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Print GitHub values for reference
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      #- name: Obtain release assets
+      #  run:
+      #- name: Create checksum file
+      #  run:
+      #- name: Upload release asset
+      #  uses: actions/upload-release-asset@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #  with:
+      #    upload_url: ${{ github.event.release.upload_url }}
+      #    asset_name: checksums.txt
