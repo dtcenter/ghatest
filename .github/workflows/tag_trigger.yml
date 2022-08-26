@@ -3,7 +3,7 @@ name: Tag Trigger
 on:
   push:
     tags:
-      - **
+      - v*
 
 jobs:
   github_info:
