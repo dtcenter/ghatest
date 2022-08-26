@@ -1,0 +1,14 @@
+name: Tag Trigger
+
+on:
+  push:
+    tags:
+      - **
+
+jobs:
+  github_info:
+    steps:
+      - name: Print GitHub values for reference
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
