@@ -16,7 +16,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Add checksum
-        uses: dtcenter/metplus-action-release-checksum@a199d8f19bb530f79738415fe900a9b4676a2604
+        uses: dtcenter/metplus-action-release-checksum@645a4520c54d240783cf21f31ae824ece7333697
         with:
           token: ${{ secrets.METPLUS_BOT_TOKEN }}
       #- name: Obtain release assets
