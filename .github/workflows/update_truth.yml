@@ -18,6 +18,7 @@ jobs:
       - name: Check if branch is valid
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
+          echo "branch_name=$branch_name" >> $GITHUB_ENV
           if [[ $branch_name == "develop" ]]; then exit 0; fi
           if [[ $branch_name =~ ^main_v[0-9]+\.[0-9]+$ ]]; then exit 0; fi
           echo Branch is $branch_name - must be develop or match main_vX.Y
@@ -27,7 +28,7 @@ jobs:
           fetch-depth: 0
       - name: Check if ref branch exists
         run: |
-          branch_name=${GITHUB_REF#refs/heads/}
+          branch_name=${{ env.branch_name }}
           cd ${GITHUB_WORKSPACE}
           if [[ -z "$(git ls-remote --heads origin ${branch_name}-ref)" ]]; then
             echo ${branch_name}-ref does not exist -- create it from $branch_name
@@ -35,12 +36,20 @@ jobs:
             git checkout -b ${branch_name}-ref
             echo git push origin ${branch_name}-ref
             git push origin ${branch_name}-ref
-          else
-            echo ${branch_name}-ref does exist -- update it
-            echo git merge -s ours origin/${branch_name}-ref
-            git merge -s ours origin/${branch_name}-ref
-            echo git push origin ${branch_name}
-            git push origin ${branch_name}
+            exit $?
           fi
+          
+          echo ${branch_name}-ref does exist -- update it
+          echo git merge -s ours origin/${branch_name}-ref
+          git merge -s ours origin/${branch_name}-ref
+          echo git push origin ${branch_name}
+          git push origin ${branch_name}
           echo Title: Update ${branch_name}-ref after "${{ github.event.inputs.pull_requests }}"
           echo Body: Change summary: ${{ github.event.inputs.change_summary }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          base: ${{ env.branch_name }}-ref
+          title: Update ${branch_name}-ref after "${{ github.event.inputs.pull_requests }}"
+          body: Created by ${{ github.actor}}\n "${{ github.event.inputs.change_summary }}"
