@@ -15,7 +15,7 @@ jobs:
     name: "Update or create truth reference branch"
     runs-on: ubuntu-latest
     steps:
-      - name: Check if branch is valid
+      - name: Check if branch is develop or main_vX.Y
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           echo "branch_name=$branch_name" >> $GITHUB_ENV
@@ -24,23 +24,19 @@ jobs:
             echo Branch is valid - $branch_name
             exit 0
           fi
-          echo Branch is $branch_name - must be develop or match main_vX.Y
+          echo ERROR: Branch is $branch_name - must be develop or match main_vX.Y
           exit 1
       - uses: actions/checkout@v3
+        name: Checkout repository
         with:
           fetch-depth: 0
-      - name: Create ref branch or resolve conflicts
+      - name: Resolve conflicts between branch and branch-ref
         run: |
           branch_name=${{ env.branch_name }}
           cd ${GITHUB_WORKSPACE}
           if [[ -z "$(git ls-remote --heads origin ${branch_name}-ref)" ]]; then
-            echo ${branch_name}-ref does not exist -- create it from $branch_name
-            echo git checkout -b ${branch_name}-ref
-            git checkout -b ${branch_name}-ref
-            echo git push origin ${branch_name}-ref
-            git push origin ${branch_name}-ref
-            echo "create_pr=false" >> $GITHUB_ENV
-            exit $?
+            echo ERROR: ${branch_name}-ref does not exist
+            exit 1
           fi
           
           echo ${branch_name}-ref does exist -- update it
@@ -50,11 +46,9 @@ jobs:
           git merge -s ours origin/${branch_name}-ref
           echo git push origin ${branch_name}
           git push origin ${branch_name}
-          echo "create_pr=true" >> $GITHUB_ENV
 
       - name: Create Pull Request
         run: gh pr create --base $BASE --body "$BODY" --title "$TITLE"
-        if: ${{ env.create_pr == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           BASE: ${{ env.branch_name }}-ref
