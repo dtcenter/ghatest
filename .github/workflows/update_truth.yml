@@ -51,5 +51,6 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           base: ${{ env.branch_name }}-ref
+          branch: ${{ env.branch_name }}
           title: Update ${branch_name}-ref after "${{ github.event.inputs.pull_requests }}"
           body: Created by ${{ github.actor}}\n "${{ github.event.inputs.change_summary }}"
