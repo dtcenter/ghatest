@@ -3,7 +3,7 @@ name: Update Truth Data
 on:
   workflow_dispatch:
     inputs:
-      pull_request:
+      pull_requests:
         description: 'Pull request(s) that warranted update, e.g. #123 dtcenter/MET#123'
         required: true
       change_summary:
@@ -36,7 +36,9 @@ jobs:
           else
             echo ${branch_name}-ref does exist -- update it
             echo git merge -s ours ${branch_name}-ref
+            git merge -s ours ${branch_name}-ref
             echo git push origin ${branch_name}
+            git push origin ${branch_name}
           fi
-          echo Title: Update ${branch_name}-ref after ${{ github.event.inputs.pull_request }}
+          echo Title: Update ${branch_name}-ref after ${{ github.event.inputs.pull_requests }}
           echo Body: Change summary: ${{ github.event.inputs.change_summary }}
