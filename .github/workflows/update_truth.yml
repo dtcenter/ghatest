@@ -52,6 +52,7 @@ jobs:
       - name: Create Pull Request
         run: gh pr create --base $BASE --body "$BODY" --title "$TITLE"
         env:
+          GH_TOKEN: ${{ github.token }}
           BASE: ${{ env.branch_name }}-ref
           BODY: Update ${branch_name}-ref after "${{ github.event.inputs.pull_requests }}"
           TITLE: Created by ${{ github.actor}}\n"${{ github.event.inputs.change_summary }}"
