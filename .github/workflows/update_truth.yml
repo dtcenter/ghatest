@@ -23,6 +23,8 @@ jobs:
           echo Branch is $branch_name - must be develop or match main_vX.Y
           exit 1
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Check if ref branch exists
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
