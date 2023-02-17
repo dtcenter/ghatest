@@ -37,8 +37,8 @@ jobs:
             git push origin ${branch_name}-ref
           else
             echo ${branch_name}-ref does exist -- update it
-            echo git merge -s ours ${branch_name}-ref
-            git merge -s ours ${branch_name}-ref
+            echo git merge -s ours origin/${branch_name}-ref
+            git merge -s ours origin/${branch_name}-ref
             echo git push origin ${branch_name}
             git push origin ${branch_name}
           fi
