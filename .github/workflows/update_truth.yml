@@ -12,19 +12,8 @@ jobs:
       - name: Check if branch is valid
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
-          if [[ $branch_name == "develop" ]]; then
-            echo develop is good
-            exit 0
-          fi
-          if [[ ${branch_name:0:6} =~ ^main_v[0-9]\.[0-9]$ ]]; then
-            echo main_vX.Y is good
-            exit 0;
-          fi
-          
-          if [[ ${branch_name} =~ ^main$ ]]; then
-            echo main is good
-            exit 0;
-          fi
-          echo Branch must be develop or match main_vX.Y: $branch_name
+          if [[ $branch_name == "develop" ]]; then exit 0; fi
+          if [[ ${branch_name:0:6} =~ ^main_v[0-9]\.[0-9]$ ]]; then exit 0; fi
+          echo Branch ($branch_name) must be develop or match main_vX.Y
           exit 1
       - uses: actions/checkout@v3
