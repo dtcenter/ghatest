@@ -13,7 +13,7 @@ jobs:
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           if [[ $branch_name == "develop" ]]; then exit 0; fi
-          if [[ ${branch_name:0:6} =~ ^main_v[0-9]+\.[0-9]+$ ]]; then exit 0; fi
+          if [[ $branch_name =~ ^main_v[0-9]+\.[0-9]+$ ]]; then exit 0; fi
           echo Branch is $branch_name - must be develop or match main_vX.Y
           exit 1
       - uses: actions/checkout@v3
