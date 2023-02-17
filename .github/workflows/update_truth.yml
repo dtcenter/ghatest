@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       pull_requests:
-        description: 'Pull request(s) that warranted update, e.g. #123 dtcenter/MET#123'
+        description: 'Pull request(s) that warranted update, e.g. "#123" or "#123 and dtcenter/MET#123"'
         required: true
       change_summary:
-        description: 'Summary of changes'
+        description: 'Summary of changes to truth data'
         required: true
 
 jobs:
@@ -19,14 +19,17 @@ jobs:
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
           echo "branch_name=$branch_name" >> $GITHUB_ENV
-          if [[ $branch_name == "develop" ]]; then exit 0; fi
-          if [[ $branch_name =~ ^main_v[0-9]+\.[0-9]+$ ]]; then exit 0; fi
+          if [[ $branch_name == "develop" ]] || \
+             [[ $branch_name =~ ^main_v[0-9]+\.[0-9]+$ ]]; then
+            echo Branch is valid - $branch_name
+            exit 0
+          fi
           echo Branch is $branch_name - must be develop or match main_vX.Y
           exit 1
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Check if ref branch exists
+      - name: Create ref branch or resolve conflicts
         run: |
           branch_name=${{ env.branch_name }}
           cd ${GITHUB_WORKSPACE}
@@ -46,13 +49,11 @@ jobs:
           git merge -s ours origin/${branch_name}-ref
           echo git push origin ${branch_name}
           git push origin ${branch_name}
-          echo Title: Update ${branch_name}-ref after "${{ github.event.inputs.pull_requests }}"
-          echo Body: Change summary: ${{ github.event.inputs.change_summary }}
 
       - name: Create Pull Request
         run: gh pr create --base $BASE --body "$BODY" --title "$TITLE"
         env:
           GH_TOKEN: ${{ github.token }}
           BASE: ${{ env.branch_name }}-ref
-          BODY: ${{ github.event.inputs.change_summary }}<br/>Created by ${{ github.actor}}
+          BODY: ${{ github.event.inputs.change_summary }}<br/>Created by @${{ github.actor}}
           TITLE: Update ${{ env.branch_name }}-ref after ${{ github.event.inputs.pull_requests }}
