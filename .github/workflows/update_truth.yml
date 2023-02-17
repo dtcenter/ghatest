@@ -39,6 +39,7 @@ jobs:
             git checkout -b ${branch_name}-ref
             echo git push origin ${branch_name}-ref
             git push origin ${branch_name}-ref
+            echo "create_pr=False" >> $GITHUB_ENV
             exit $?
           fi
           
@@ -49,9 +50,11 @@ jobs:
           git merge -s ours origin/${branch_name}-ref
           echo git push origin ${branch_name}
           git push origin ${branch_name}
+          echo "create_pr=True" >> $GITHUB_ENV
 
       - name: Create Pull Request
         run: gh pr create --base $BASE --body "$BODY" --title "$TITLE"
+        if: ${{ env.create_pr }} == "True"
         env:
           GH_TOKEN: ${{ github.token }}
           BASE: ${{ env.branch_name }}-ref
