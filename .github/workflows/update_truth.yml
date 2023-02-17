@@ -12,7 +12,7 @@ jobs:
       - name: Check if branch is valid
         run: |
           branch_name=${GITHUB_REF#refs/heads/}
-          if [[ $branch_name == "develop" ]] then
+          if [[ $branch_name == "develop" ]]; then
             echo develop is good
             exit 0
           fi
