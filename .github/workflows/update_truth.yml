@@ -2,7 +2,13 @@ name: Update Truth Data
 
 on:
   workflow_dispatch:
-
+    inputs:
+      pull_request:
+        description: 'Pull request(s) that warranted update, e.g. #123 dtcenter/MET#123'
+        required: true
+      change_summary:
+        description: 'Summary of changes'
+        required: true
 
 jobs:
   update_truth:
@@ -16,4 +22,17 @@ jobs:
           if [[ $branch_name =~ ^main_v[0-9]+\.[0-9]+$ ]]; then exit 0; fi
           echo Branch is $branch_name - must be develop or match main_vX.Y
           exit 1
-      - uses: actions/checkout@v3
+      #- uses: actions/checkout@v3
+      - name: Check if ref branch exists
+        run: |
+          if [[ -z "$(git ls-remote --heads origin ${branch_name}-ref)" ]]; then
+            echo ${branch_name}-ref does not exist -- create it from $branch_name
+            echo git checkout -b ${branch_name}-ref
+            echo git push origin ${branch_name}-ref
+          else
+            echo ${branch_name}-ref does exist -- update it
+            echo git merge -s ours ${branch_name}-ref
+            echo git push origin ${branch_name}
+          fi
+          echo Title: Update ${branch_name}-ref after ${{ github.event.inputs.pull_request }}
+          echo Body: Change summary: ${{ github.event.inputs.change_summary }}
