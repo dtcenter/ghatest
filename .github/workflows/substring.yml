@@ -12,4 +12,4 @@ jobs:
       - run: echo "branch name is $branch_name"
       - run: echo $BRANCH_NAME
         env:
-          BRANCH_NAME: $(echo ${{ github.event.inputs.branch || github.ref }} | cut -d/ -f3)
+          BRANCH_NAME: $branch_name
