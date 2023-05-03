@@ -1,0 +1,12 @@
+on:
+  push
+
+jobs:
+  get_branch_name:
+    name: "get branch name"
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          branch_name=$(echo ${{ github.event.inputs.branch || github.ref }} | cut -d/ -f3)
+          echo "branch_name=$branch_name" >> "$GITHUB_ENV"
+      - run: echo "branch name is $branch_name"
