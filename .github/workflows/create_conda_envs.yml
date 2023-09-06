@@ -9,8 +9,6 @@ on:
 
 env:
   METPLUS_ENV_VERSION: v6.0-test
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 jobs:
   conda:
@@ -32,6 +30,9 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
           echo docker push dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION}
           docker push dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION}
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
   metplus_base:
     name: "Create metplus_base env"
     runs-on: ubuntu-latest
