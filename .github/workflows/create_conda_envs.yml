@@ -9,6 +9,8 @@ on:
 
 env:
   METPLUS_ENV_VERSION: v6.0-test
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
 jobs:
   conda:
