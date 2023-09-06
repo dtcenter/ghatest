@@ -9,6 +9,8 @@ on:
 
 env:
   METPLUS_ENV_VERSION: v6.0-test
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 jobs:
   conda:
@@ -25,15 +27,16 @@ jobs:
           path: METplus
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
+        env:
+          IMG_NAME: conda
+          DOCKERFILE: Dockerfile.conda
 
       - name: Push
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
           echo docker push dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION}
           docker push dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION}
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+
   metplus_base:
     name: "Create metplus_base env"
     runs-on: ubuntu-latest

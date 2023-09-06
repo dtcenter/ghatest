@@ -1,5 +1,4 @@
 cd ${GITHUB_WORKSPACE}/METplus/internal/scripts/docker_env
-echo docker build -t dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION} \
-  -f Dockerfile.conda .
-docker build -t dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION} \
-  -f Dockerfile.conda .
+cmd=docker build -t dtcenter/metplus-envs:${IMG_NAME}.${METPLUS_ENV_VERSION} -f ${DOCKERFILE} .
+echo $cmd
+$cmd
