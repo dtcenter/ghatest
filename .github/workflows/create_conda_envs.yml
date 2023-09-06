@@ -16,12 +16,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: ghatest
       - uses: actions/checkout@v4
         with:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
+          path: METplus
       - name: Build
-        run: .github/jobs/build_conda_image.sh
+        run: ghatest/.github/jobs/build_conda_image.sh
 
       - name: Push
         run: |
