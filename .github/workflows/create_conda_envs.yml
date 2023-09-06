@@ -30,6 +30,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: echo ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -51,6 +52,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: echo ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -72,6 +74,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: echo ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -92,6 +95,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: echo ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -111,6 +115,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -131,6 +136,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -150,6 +156,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -169,6 +176,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -188,6 +196,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -207,6 +216,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -227,6 +237,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -248,6 +259,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -268,6 +280,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -288,6 +301,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -308,6 +322,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -328,6 +343,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -347,6 +363,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -367,6 +384,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
@@ -387,6 +405,7 @@ jobs:
           repository: 'dtcenter/METplus'
           sparse-checkout: internal
           path: METplus
+          ref: feature_2338_debian12_conda_envs
       - name: Build
         run: ghatest/.github/jobs/build_conda_image.sh
       - name: Push
