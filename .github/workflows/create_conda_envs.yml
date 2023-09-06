@@ -15,16 +15,14 @@ jobs:
     name: "Create conda env"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           repository: 'dtcenter/METplus'
+          sparse-checkout: internal
       - name: Build
-        run: |
-          cd internal/scripts/docker_env
-          echo docker build -t dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION} \
-            -f Dockerfile.conda .
-          docker build -t dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION} \
-            -f Dockerfile.conda .
+        run: .github/jobs/build_conda_image.sh
+
       - name: Push
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
