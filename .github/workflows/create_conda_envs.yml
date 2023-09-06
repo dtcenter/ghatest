@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: 'dtcenter/METplus'
       - name: Build
         run: |
           cd internal/scripts/docker_env; ls
@@ -29,6 +31,8 @@ jobs:
     needs: [conda]
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: 'dtcenter/METplus'
       - name: Build
         run: |
           cd internal/scripts/docker_env; ls
