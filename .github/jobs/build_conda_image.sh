@@ -1,7 +1,9 @@
-cd ${GITHUB_WORKSPACE}/METplus/internal/scripts/docker_env
+DOCKER_ENV_DIR=${GITHUB_WORKSPACE}/METplus/internal/scripts/docker_env
 cmd="docker build \
-  -t dtcenter/metplus-envs:${IMG_NAME}.${METPLUS_ENV_VERSION} \
-  -f ${DOCKERFILE} \
-  ."
+  -t dtcenter/metplus-envs:${ENV_NAME}.${METPLUS_ENV_VERSION} \
+  --build-arg METPLUS_ENV_VERSION \
+  --build-arg BASE_ENV \
+  --build-arg ENV_NAME \
+  -f ${DOCKER_ENV_DIR}/${DOCKERFILE} ${DOCKER_ENV_DIR}"
 echo $cmd
 $cmd
