@@ -27,6 +27,7 @@ jobs:
             -f Dockerfile.conda .
       - name: Push
         run: |
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
           echo docker push dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION}
           docker push dtcenter/metplus-envs:conda.${METPLUS_ENV_VERSION}
   metplus_base:
@@ -48,5 +49,6 @@ jobs:
             -f Dockerfile.metplus_base .
       - name: Push
         run: |
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
           echo docker push dtcenter/metplus-envs:metplus_base.${METPLUS_ENV_VERSION}
           docker push dtcenter/metplus-envs:metplus_base.${METPLUS_ENV_VERSION}
