@@ -25,7 +25,7 @@ jobs:
           IFS=', ' read -r -a arr <<< "$skip_str"
           echo "skip_list2=$arr" >> $GITHUB_OUTPUT
           JSON="["
-          for item in ${arr[@]}; do; JSON="$JSON\"$item\""; done
+          for item in ${arr[@]}; do JSON="$JSON\"$item\""; done
           if [[ $JSON == *, ]]; then; JSON="${JSON%?}"; fi
           echo "skip_list=$( echo "$JSON" )" >> $GITHUB_OUTPUT
           echo ${JSON}
