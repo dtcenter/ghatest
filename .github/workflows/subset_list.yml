@@ -37,7 +37,7 @@ jobs:
   one:
     runs-on: ubuntu-latest
     needs: [skip]
-    if: always() && (${{ needs.skip.outputs.no_skip == 'true' }} || ${{ contains(fromJSON(needs.skip.outputs.run_list), 'one') }})
+    if: ${{ always() && (needs.skip.outputs.no_skip == 'true' || contains(fromJSON(needs.skip.outputs.run_list), 'one')) }}
     steps:
       - name: Run
         run: echo ran this one!
@@ -45,7 +45,7 @@ jobs:
       - run: echo ${{ needs.skip.outputs.no_skip }}
       - run: echo ${{ needs.skip.outputs.no_skip == 'true' }}
       - run: echo ${{ needs.skip.outputs.no_skip == 'false' }}
-      - run: echo always() && (${{ needs.skip.outputs.no_skip == 'true' }} || ${{ contains(fromJSON(needs.skip.outputs.run_list), 'one') }})
+      - run: echo ${{ always() && (needs.skip.outputs.no_skip == 'true' || contains(fromJSON(needs.skip.outputs.run_list), 'one')) }}
 
   two:
     runs-on: ubuntu-latest
