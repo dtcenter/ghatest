@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       subset:
-        description: 'Space-separated list of environments to build. Use "all" to build all.'
+        description: 'Space-separated list of environments to build. Leave empty to build all.'
         required: false
         default: ''
 
