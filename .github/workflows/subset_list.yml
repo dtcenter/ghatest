@@ -23,6 +23,7 @@ jobs:
         run: |
           skip_str=${{ env.SKIP_LIST }}
           arr=()
+          echo $skip_str
           val=$(echo $skip_str | awk '{print $1}'); if [ ! -z "$val" ]; then arr[${#arr[@]}]=$val; fi
           val=$(echo $skip_str | awk '{print $2}'); if [ ! -z "$val" ]; then arr[${#arr[@]}]=$val; fi
           val=$(echo $skip_str | awk '{print $3}'); if [ ! -z "$val" ]; then arr[${#arr[@]}]=$val; fi
