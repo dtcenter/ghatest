@@ -21,8 +21,10 @@ jobs:
           msg: ${{ env.SKIP_LIST }}
       - id: combine
         run: |
+          skip_str=${{ env.SKIP_LIST }}
           arr=()
-          for i in $(seq 0 $((${{ steps.split.outputs.length }}-1))); do name="steps.split.outputs._$i"; echo ${{ $name }}; arr[${#arr[@]}]=$i;done
+          for i in $(seq 1 30); do val=$(echo $skip_str | awk -F '{print ${!i}'); echo $val; arr[${#arr[@]}]=$val;done
+          #for i in $(seq 0 $((${{ steps.split.outputs.length }}-1))); do name="steps.split.outputs._$i"; echo ${{ $name }}; arr[${#arr[@]}]=$i;done
           echo "skip_list=$arr" >> $GITHUB_OUTPUT
           echo ${arr[@]}
     outputs:
