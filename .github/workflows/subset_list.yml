@@ -58,9 +58,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: [check]
     if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), 'four'))
+    env:
+      JOB_ID: ${{ github.job }}
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
+      - run: echo job ID is $JOB_ID
 
   five:
     runs-on: ubuntu-latest
