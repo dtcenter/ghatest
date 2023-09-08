@@ -64,7 +64,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ needs.skip.outputs.skip_list }}
+      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'one') }}
 
   two:
     runs-on: ubuntu-latest
@@ -72,6 +72,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
+      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'two') }}
 
   three:
     runs-on: ubuntu-latest
@@ -79,6 +80,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
+      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'three') }}
 
   four:
     runs-on: ubuntu-latest
@@ -86,6 +88,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
+      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'four') }}
 
   five:
     runs-on: ubuntu-latest
@@ -93,3 +96,4 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
+      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'five') }}
