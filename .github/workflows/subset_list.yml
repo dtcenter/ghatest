@@ -1,0 +1,57 @@
+name: Subset List Test
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      subset:
+        description: 'Comma-separated list of environments to skip. Leave blank to build all.'
+        required: false
+
+env:
+  SKIP_LIST: 'two  four'
+
+jobs:
+  skip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jungwinter/split@v2
+        id: split
+        with:
+          msg: ${{ env.SKIP_LIST }}
+    outputs:
+      skip_list: ${{ steps.id.outputs }}
+  one:
+    runs-on: ubuntu-latest
+    needs: [skip]
+    steps:
+      - name: Run
+        run: echo ran this one!
+      - run: echo ${{ needs.skip.outputs.skip_list }}
+
+  two:
+    runs-on: ubuntu-latest
+    needs: [skip,one]
+    steps:
+      - name: Run
+        run: echo ran this one!
+
+  three:
+    runs-on: ubuntu-latest
+    needs: [skip,one]
+    steps:
+      - name: Run
+        run: echo ran this one!
+
+  four:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run
+        run: echo ran this one!
+
+  five:
+    runs-on: ubuntu-latest
+    needs: [skip,three]
+    steps:
+      - name: Run
+        run: echo ran this one!
