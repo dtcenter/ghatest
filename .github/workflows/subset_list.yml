@@ -9,7 +9,7 @@ on:
         required: false
 
 env:
-  SKIP_LIST: 'two  four'
+  SKIP_LIST: 'two   four'
 
 jobs:
   skip:
@@ -22,7 +22,7 @@ jobs:
       - id: combine
         run: |
           arr=()
-          for i in $(seq 0 $((${{ steps.split.outputs.length }}-1))); do echo $i; arr[${#arr[@]}]=$i;done
+          for i in $(seq 0 $((${{ steps.split.outputs.length }}-1))); do name="steps.split.outputs._$i"; echo ${{ $name }}; arr[${#arr[@]}]=$i;done
           echo "skip_list=$arr" >> $GITHUB_OUTPUT
           echo ${arr[@]}
     outputs:
@@ -34,7 +34,6 @@ jobs:
       - name: Run
         run: echo ran this one!
       - run: echo ${{ needs.skip.outputs.skip_list }}
-      - run: echo ${{ needs.skip.outputs.skip_list2 }}
 
   two:
     runs-on: ubuntu-latest
