@@ -10,6 +10,7 @@ on:
 
 jobs:
   check:
+    name: Check inputs to determine what to run
     runs-on: ubuntu-latest
     steps:
       - id: parse_list
@@ -34,10 +35,6 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'one') }}
-      - run: echo ${{ needs.check.outputs.no_skip }}
-      - run: echo ${{ needs.check.outputs.no_skip == 'true' }}
-      - run: echo ${{ needs.check.outputs.no_skip == 'false' }}
 
   two:
     runs-on: ubuntu-latest
@@ -46,7 +43,6 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'two') }}
 
   three:
     runs-on: ubuntu-latest
@@ -55,7 +51,6 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'three') }}
 
   four:
     runs-on: ubuntu-latest
@@ -64,7 +59,6 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'four') }}
 
   five:
     runs-on: ubuntu-latest
@@ -73,7 +67,6 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'five') }}
 
   two_again:
     runs-on: ubuntu-latest
@@ -82,7 +75,6 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'two_again') }}
 
   six:
     runs-on: ubuntu-latest
@@ -91,4 +83,3 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'six') }}
