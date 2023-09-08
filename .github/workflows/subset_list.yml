@@ -17,7 +17,6 @@ jobs:
         run: |
           run_str="${{ github.event.inputs.subset }}"
           if [ "$run_str" == "" ]; then echo "no_skip=true" >> $GITHUB_OUTPUT; exit 0; fi
-          echo "no_skip=false" >> $GITHUB_OUTPUT;
           IFS=', ' read -r -a arr <<< "$run_str"
           JSON="["
           for item in ${arr[@]}; do JSON="$JSON\"$item\","; done
