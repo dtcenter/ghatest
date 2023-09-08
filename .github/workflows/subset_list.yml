@@ -24,10 +24,9 @@ jobs:
           arr=()
           for i in $(seq 0 $((${{ steps.split.outputs.length }}-1))); do echo $i; arr[${#arr[@]}]=$i;done
           echo "skip_list=$arr" >> $GITHUB_OUTPUT
-          echo $arr
+          echo ${arr[@]}
     outputs:
       skip_list: ${{ steps.combine.outputs.skip_list }}
-      skip_list2: ${{ steps.split.outputs }}
   one:
     runs-on: ubuntu-latest
     needs: [skip]
