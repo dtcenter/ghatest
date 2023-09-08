@@ -6,7 +6,7 @@ on:
       subset:
         description: 'Space-separated list of environments to build. Use "all" to build all.'
         required: true
-        default: 'all'
+        default: ''
 
 jobs:
   check:
@@ -16,7 +16,7 @@ jobs:
       - id: parse_list
         run: |
           run_str="${{ github.event.inputs.subset }}"
-          if [ "$run_str" == "all" ]; then echo "no_skip=true" >> $GITHUB_OUTPUT; exit 0; fi
+          if [ "$run_str" == "" ]; then echo "no_skip=true" >> $GITHUB_OUTPUT; exit 0; fi
           echo "no_skip=false" >> $GITHUB_OUTPUT;
           IFS=', ' read -r -a arr <<< "$run_str"
           JSON="["
