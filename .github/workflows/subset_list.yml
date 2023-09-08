@@ -19,12 +19,15 @@ jobs:
         id: split
         with:
           msg: ${{ env.SKIP_LIST }}
-      - run: |
+      - id: combine
+        run: |
           arr=()
           for i in $(seq 0 $((${{ steps.split.outputs.length }}-1))); do echo $i; arr[${#arr[@]}]=$i;done
           echo "skip_list=$arr" >> $GITHUB_OUTPUT
+          echo $arr
     outputs:
-      skip_list: ${{ steps.id.outputs.skip_list }}
+      skip_list: ${{ steps.combine.outputs.skip_list }}
+      skip_list2: ${{ steps.split.outputs }}
   one:
     runs-on: ubuntu-latest
     needs: [skip]
@@ -32,6 +35,7 @@ jobs:
       - name: Run
         run: echo ran this one!
       - run: echo ${{ needs.skip.outputs.skip_list }}
+      - run: echo ${{ needs.skip.outputs.skip_list2 }}
 
   two:
     runs-on: ubuntu-latest
