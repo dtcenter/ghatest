@@ -24,6 +24,7 @@ jobs:
           if [[ $JSON == *, ]]; then JSON="${JSON%?}"; fi
           JSON="$JSON]"
           echo "run_list=$( echo "$JSON" )" >> $GITHUB_OUTPUT
+          echo $JSON
     outputs:
       no_skip: ${{ steps.parse_list.outputs.no_skip }}
       run_list: ${{ steps.parse_list.outputs.run_list }}
@@ -39,7 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [check,one]
     if: |
-      always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
+      always() && (needs.check.outputs.no_skip == 'true' ||
+      contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
