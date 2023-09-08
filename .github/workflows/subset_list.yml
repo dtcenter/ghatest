@@ -9,7 +9,7 @@ on:
         required: false
 
 env:
-  SKIP_LIST: 'two_again   four'
+  SKIP_LIST: ''
 
 jobs:
   skip:
