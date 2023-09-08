@@ -45,7 +45,6 @@ jobs:
       - run: echo ${{ needs.skip.outputs.no_skip }}
       - run: echo ${{ needs.skip.outputs.no_skip == 'true' }}
       - run: echo ${{ needs.skip.outputs.no_skip == 'false' }}
-      - run: echo ${{ always() && (needs.skip.outputs.no_skip == 'true' || contains(fromJSON(needs.skip.outputs.run_list), 'one')) }}
 
   two:
     runs-on: ubuntu-latest
