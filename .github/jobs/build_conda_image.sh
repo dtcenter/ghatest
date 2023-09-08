@@ -6,4 +6,4 @@ cmd="docker build \
   --build-arg ENV_NAME \
   -f ${DOCKER_ENV_DIR}/${DOCKERFILE} ${DOCKER_ENV_DIR}"
 echo $cmd
-$cmd
+#$cmd
