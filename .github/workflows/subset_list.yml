@@ -41,6 +41,7 @@ jobs:
       - name: Run
         run: echo ran this one!
       - run: echo ${{ contains(fromJSON(needs.skip.outputs.run_list), 'one') }}
+      - run: echo ${{ needs.skip.outputs.no_skip }}
 
   two:
     runs-on: ubuntu-latest
