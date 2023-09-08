@@ -35,8 +35,8 @@ jobs:
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
-        run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'one') }}
-        run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), github.job) }}
+      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), 'one') }}
+      - run: echo ${{ contains(fromJSON(needs.check.outputs.run_list), github.job) }}
 
   two:
     runs-on: ubuntu-latest
