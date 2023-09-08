@@ -25,8 +25,9 @@ jobs:
           IFS=', ' read -r -a arr <<< "$skip_str"
           echo "skip_list2=$arr" >> $GITHUB_OUTPUT
           JSON="["
-          for item in ${arr[@]}; do JSON="$JSON\"$item\""; done
-          if [[ $JSON == *, ]]; then; JSON="${JSON%?}"; fi
+          for item in ${arr[@]}; do JSON="$JSON\"$item\","; done
+          if [[ $JSON == *, ]]; then JSON="${JSON%?}"; fi
+          JSON="$JSON]"
           echo "skip_list=$( echo "$JSON" )" >> $GITHUB_OUTPUT
           echo ${JSON}
     outputs:
@@ -37,7 +38,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'one') }}
+      - run: echo ${{ contains(fromJSON(needs.skip.outputs.skip_list), 'one') }}
 
   two:
     runs-on: ubuntu-latest
@@ -45,7 +46,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'two') }}
+      - run: echo ${{ contains(fromJSON(needs.skip.outputs.skip_list), 'two') }}
 
   three:
     runs-on: ubuntu-latest
@@ -53,7 +54,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'three') }}
+      - run: echo ${{ contains(fromJSON(needs.skip.outputs.skip_list), 'three') }}
 
   four:
     runs-on: ubuntu-latest
@@ -61,7 +62,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'four') }}
+      - run: echo ${{ contains(fromJSON(needs.skip.outputs.skip_list), 'four') }}
 
   five:
     runs-on: ubuntu-latest
@@ -69,7 +70,7 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'five') }}
+      - run: echo ${{ contains(fromJSON(needs.skip.outputs.skip_list), 'five') }}
 
   two_again:
     runs-on: ubuntu-latest
@@ -77,4 +78,4 @@ jobs:
     steps:
       - name: Run
         run: echo ran this one!
-      - run: echo ${{ contains(needs.skip.outputs.skip_list, 'two_again') }}
+      - run: echo ${{ contains(fromJSON(needs.skip.outputs.skip_list), 'two_again') }}
