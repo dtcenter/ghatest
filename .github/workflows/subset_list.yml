@@ -21,7 +21,7 @@ jobs:
           msg: ${{ env.SKIP_LIST }}
       - id: combine
         run: |
-          skip_str=${{ env.SKIP_LIST }}
+          skip_str="${{ env.SKIP_LIST }}"
           arr=()
           echo $skip_str
           val=$(echo $skip_str | awk '{print $1}'); if [ ! -z "$val" ]; then arr[${#arr[@]}]=$val; fi
