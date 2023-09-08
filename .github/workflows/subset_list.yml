@@ -29,7 +29,7 @@ jobs:
   one:
     runs-on: ubuntu-latest
     needs: [check]
-    if: ${{ always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job)) }}
+    if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
@@ -37,7 +37,7 @@ jobs:
   two:
     runs-on: ubuntu-latest
     needs: [check,one]
-    if: ${{ always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job)) }}
+    if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
@@ -45,7 +45,7 @@ jobs:
   three:
     runs-on: ubuntu-latest
     needs: [check,one]
-    if: ${{ always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job)) }}
+    if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
@@ -53,7 +53,7 @@ jobs:
   four:
     runs-on: ubuntu-latest
     needs: [check]
-    if: ${{ always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job)) }}
+    if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
@@ -61,7 +61,7 @@ jobs:
   five:
     runs-on: ubuntu-latest
     needs: [check,three]
-    if: ${{ always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job)) }}
+    if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
@@ -69,7 +69,7 @@ jobs:
   two_again:
     runs-on: ubuntu-latest
     needs: [check,one]
-    if: ${{ always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job)) }}
+    if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
@@ -77,7 +77,7 @@ jobs:
   six:
     runs-on: ubuntu-latest
     needs: [check,two_again]
-    if: ${{ always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job)) }}
+    if: always() && (needs.check.outputs.no_skip == 'true' || contains(fromJSON(needs.check.outputs.run_list), github.job))
     steps:
       - name: Run
         run: echo ran ${{ github.job }}!
