@@ -5,7 +5,7 @@ on:
     inputs:
       subset:
         description: 'Space-separated list of environments to build. Use "all" to build all.'
-        required: true
+        required: false
         default: ''
 
 jobs:
