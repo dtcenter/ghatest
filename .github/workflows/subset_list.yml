@@ -21,7 +21,7 @@ jobs:
           msg: ${{ env.SKIP_LIST }}
       - run: |
           arr=()
-          for i in $(seq 0 $((${{ steps.split.length }}-1))); do echo $i; arr[$#arr[@]}]=$i;done
+          for i in $(seq 0 $((${{ steps.split.outputs.length }}-1))); do echo $i; arr[$#arr[@]}]=$i;done
           echo "skip_list=$arr" >> $GITHUB_OUTPUT
     outputs:
       skip_list: ${{ steps.id.outputs.skip_list }}
