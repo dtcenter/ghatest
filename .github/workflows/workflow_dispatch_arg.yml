@@ -1,0 +1,18 @@
+name: WD argument
+
+on:
+  workflow_dispatch:
+    inputs:
+      force_met_image:
+        description: 'MET DockerHub repo to force run to use, e.g. met:11.1.0 or met-dev:feature_XYZ_name-PR. Leave this blank to determine repo automatically.'
+
+jobs:
+
+  test_var:
+    name: testing var
+    runs-on: ubuntu-latest
+    steps:
+      - name: check value
+        run: echo value is X${SET_MET_IMAGE}X
+        env:
+          SET_MET_IMAGE: ${{ github.event.inputs.force_met_image }}
