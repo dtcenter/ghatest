@@ -22,7 +22,8 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: actions/checkout@v4
+      - id: Checkout code from this repo
+        uses: actions/checkout@v4
       # get the develop branch of METplus to get the latest component version script
       # use fetch-depth 0 to get all branches
       - uses: actions/checkout@v4
@@ -42,7 +43,7 @@ jobs:
           version=${{ steps.get_version.outputs.version }}
           git -C $GITHUB_WORKSPACE/METplus checkout develop
           cmd="$GITHUB_WORKSPACE/METplus/metplus/component_versions.py -i METplotpy -v ${version} -o METplus -f main_v{X}.{Y}"
-          #echo $cmd
+          echo $cmd
           metplus_branch=$($cmd)
           echo git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch}
           git -C $GITHUB_WORKSPACE/METplus branch -l
