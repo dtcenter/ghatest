@@ -45,6 +45,7 @@ jobs:
           metplus_branch=$($cmd)
           echo git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch}
           git --version
+          git -C $GITHUB_WORKSPACE/METplus branch -l
           branch_exists=$(git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch})
           echo branch exists: ${branch_exists}
           if [ -z "${branch_exists}" ]; then
