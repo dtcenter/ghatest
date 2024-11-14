@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - id: Checkout code from this repo
+      - name: Checkout code from this repo
         uses: actions/checkout@v4
       # get the develop branch of METplus to get the latest component version script
       # use fetch-depth 0 to get all branches
