@@ -25,7 +25,8 @@ jobs:
       - uses: actions/checkout@v4
       # get the develop branch of METplus to get the latest component version script
       # use fetch-depth 0 to get all branches
-      - uses: actions/checkout@v4
+      - name: Get METplus repo for component version script
+        uses: actions/checkout@v4
         with:
           repository: 'dtcenter/METplus'
           #ref: 'develop'
