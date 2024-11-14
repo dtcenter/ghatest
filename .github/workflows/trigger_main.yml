@@ -42,8 +42,8 @@ jobs:
           cmd="$GITHUB_WORKSPACE/METplus/metplus/component_versions.py -i METplotpy -v ${version} -o METplus -f main_v{X}.{Y}"
           echo $cmd
           metplus_branch=$($cmd)
-          if !git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch} --format '%(refname:short)'; then
-            echo "METplus branch ${metplus_branch} does not exist"
+          if [ -z "$(git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch} --format '%(refname:short)')" ]; then
+            echo "METplus branch ${metplus_branch} does not exist yet"
             exit 1
           fi
           echo "metplus_branch=${metplus_branch}" >> $GITHUB_OUTPUT
