@@ -24,11 +24,13 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - uses: actions/checkout@v4
       # get the develop branch of METplus to get the latest component version script
+      # use fetch-depth 0 to get all branches
       - uses: actions/checkout@v4
         with:
           repository: 'dtcenter/METplus'
           ref: 'develop'
           path: 'METplus'
+          fetch-depth: 0
       - id: get_version
         run: |
           version=$(cut -d "/" -f3 <<< "${GITHUB_REF}")
