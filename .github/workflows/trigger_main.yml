@@ -42,7 +42,7 @@ jobs:
           version=${{ steps.get_version.outputs.version }}
           git -C $GITHUB_WORKSPACE/METplus checkout develop
           cmd="$GITHUB_WORKSPACE/METplus/metplus/component_versions.py -i METplotpy -v ${version} -o METplus -f main_v{X}.{Y}"
-          echo $cmd
+          #echo $cmd
           metplus_branch=$($cmd)
           echo git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch}
           git -C $GITHUB_WORKSPACE/METplus branch -l
