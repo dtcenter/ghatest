@@ -33,14 +33,23 @@ jobs:
         run: |
           version=$(python3 -c "from component_name import __version__; print(__version__)")
           echo "version=${version}" >> $GITHUB_OUTPUT
-      - run: |
+      - id: get_metplus_branch
+        run: |
           repo=${{ github.repository }}
           repo=${repo#*/}
           echo repo is ${repo}
           version=${{ steps.get_version.outputs.version }}
           cmd="$GITHUB_WORKSPACE/METplus/metplus/component_versions.py -i METplotpy -v ${version} -o METplus -f main_v{X}.{Y}"
           echo $cmd
-          $cmd
+          metplus_branch=$($cmd)
+          if !git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch} --format '%(refname:short)'; then
+            echo "METplus branch ${metplus_branch} does not exist"
+            exit 1
+          fi
+          echo "metplus_branch=${metplus_branch}" >> $GITHUB_OUTPUT
+      - run: |
+          metplus_branch=${{ steps.get_metplus_branch.outputs.metplus_branch }}
+          echo "Triggering workflow dispatch of ${metplus_branch}"
 #      - uses: actions/github-script@v7
 #        with:
 #          github-token: ${{ secrets.METPLUS_BOT_TOKEN }}
