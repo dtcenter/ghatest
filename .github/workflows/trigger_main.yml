@@ -21,7 +21,7 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: dtcenter/metplus-action-trigger-use-cases@2bb0cfb1f4483300f752aaf655ac92800b6dcc3e
+      - uses: dtcenter/metplus-action-trigger-use-cases@664e28785ab408380ca164e407397e3ca8a8201c
         with:
           token: ${{ secrets.METPLUS_BOT_TOKEN }}
 #      - name: Checkout code from this repo
