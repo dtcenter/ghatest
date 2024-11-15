@@ -17,11 +17,7 @@ jobs:
     name: Trigger METplus testing workflow
     runs-on: ubuntu-latest
     steps:
-      - name: Print GitHub values for reference
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - uses: dtcenter/metplus-action-trigger-use-cases@093f16857a42b53798bba63410c8cbfaaf8e3e93
+      - uses: dtcenter/metplus-action-trigger-use-cases@v1
         with:
           token: ${{ secrets.METPLUS_BOT_TOKEN }}
 #      - name: Checkout code from this repo
