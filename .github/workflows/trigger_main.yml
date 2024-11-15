@@ -5,7 +5,6 @@ on:
     branches:
       - develop
       - 'main_v[0-9]+.[0-9]+'
-      - main
     paths-ignore:
       - 'docs/**'
       - '.github/pull_request_template.md'
@@ -22,47 +21,45 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Checkout code from this repo
-        uses: actions/checkout@v4
-      # get the develop branch of METplus to get the latest component version script
-      # use fetch-depth 0 to get all branches
-      - name: Get METplus repo for component version script
-        uses: actions/checkout@v4
+      - uses: dtcenter/metplus-action-trigger-use-cases@2bb0cfb1f4483300f752aaf655ac92800b6dcc3e
         with:
-          repository: 'dtcenter/METplus'
-          ref: 'develop'
-          path: 'METplus'
-      - id: get_version
-        run: |
-          version=$(cut -d "/" -f3 <<< "${GITHUB_REF}")
-          echo "version=${version}" >> $GITHUB_OUTPUT
-      - id: get_metplus_branch
-        run: |
-          repo=${{ github.repository }}
-          repo=${repo#*/}
-          version=${{ steps.get_version.outputs.version }}
-          cmd="$GITHUB_WORKSPACE/METplus/metplus/component_versions.py -i METplotpy -v ${version} -o METplus -f main_v{X}.{Y}"
-          echo $cmd
-          metplus_branch=$($cmd)
-          # if no branch can be determined, exit and error
-          if [ -z "${metplus_branch}" ]; then
-            echo "ERROR: Could not get METplus branch"
-            exit 1
-          fi
-          echo git -C $GITHUB_WORKSPACE/METplus branch -l ${metplus_branch}
-          git -C $GITHUB_WORKSPACE/METplus branch -l
-          #branch_exists=$(git -C $GITHUB_WORKSPACE/METplus ls-remote origin ${metplus_branch})
-          branch_exists=$(git -C $GITHUB_WORKSPACE/METplus ls-remote origin main_v5.0)
-          echo branch exists: ${branch_exists}
-          if [ -z "${branch_exists}" ]; then
-            echo "METplus branch ${metplus_branch} does not exist yet"
-            metplus_branch=none
-          fi
-          echo "metplus_branch=${metplus_branch}" >> $GITHUB_OUTPUT
-      - if: ( steps.get_metplus_branch.outputs.metplus_branch  != 'none' )
-        run: |
-          metplus_branch=${{ steps.get_metplus_branch.outputs.metplus_branch }}
-          echo "Triggering workflow dispatch of ${metplus_branch}"
+          token: ${{ secrets.METPLUS_BOT_TOKEN }}
+#      - name: Checkout code from this repo
+#        uses: actions/checkout@v4
+#      - name: Get METplus repo for component version script
+#        uses: actions/checkout@v4
+#        with:
+#          repository: 'dtcenter/METplus'
+#          ref: 'develop'
+#          path: 'METplus'
+#      - name: Get version from ref (branch)
+#      - id: get_version
+#        run: |
+#          version=$(cut -d "/" -f3 <<< "${GITHUB_REF}")
+#          echo "version=${version}" >> $GITHUB_OUTPUT
+#      - id: get_metplus_branch
+#        run: |
+#          repo=${{ github.repository }}
+#          repo=${repo#*/}
+#          version=${{ steps.get_version.outputs.version }}
+#          cmd="$GITHUB_WORKSPACE/METplus/metplus/component_versions.py -i ${repo} -v ${version} -o METplus -f main_v{X}.{Y}"
+#          echo $cmd
+#          metplus_branch=$($cmd)
+#          # if no branch can be determined, exit and error
+#          if [ -z "${metplus_branch}" ]; then
+#            echo "ERROR: Could not get METplus branch"
+#            exit 1
+#          fi
+#          branch_exists=$(git -C $GITHUB_WORKSPACE/METplus ls-remote origin ${metplus_branch})
+#          if [ -z "${branch_exists}" ]; then
+#            echo "METplus branch ${metplus_branch} does not exist yet"
+#            metplus_branch=none
+#          fi
+#          echo "metplus_branch=${metplus_branch}" >> $GITHUB_OUTPUT
+#      - if: ( steps.get_metplus_branch.outputs.metplus_branch  != 'none' )
+#        run: |
+#          metplus_branch=${{ steps.get_metplus_branch.outputs.metplus_branch }}
+#          echo "Triggering workflow dispatch of ${metplus_branch}"
 #      - if: ( steps.get_metplus_branch.outputs.metplus_branch  != 'none' )
 #        uses: actions/github-script@v7
 #        with:
