@@ -1,0 +1,23 @@
+name: Subset List Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-slurm:
+    name: Start Slurm Cluster
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          repository: 'giovtorres/slurm-docker-cluster'
+          ref: '2.3.1'
+      - name: Build
+        run: |
+          cp .env.example .env
+          docker pull giovtorres/slurm-docker-cluster:25.11.4-2.3.1
+          make build
+      - name: Start cluster
+        run: make up
+      - name: Test cluster
+        run: make test
