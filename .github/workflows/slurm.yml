@@ -1,4 +1,4 @@
-name: Subset List Test
+name: Slurm Test
 
 on:
   workflow_dispatch:
